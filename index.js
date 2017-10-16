@@ -268,7 +268,7 @@ const helpers = {
   },
   getQuestion (counter) {
     const milestone = milestones[counter]
-    const question = milestone.question[0]
+    const question = milestone.questions[0]
 
     return `<emphasis level="moderate">${question.question}</emphasis><break time="1s"/>`
   },
