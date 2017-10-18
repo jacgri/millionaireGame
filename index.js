@@ -329,6 +329,9 @@ var questionsHandlers = Alexa.CreateStateHandler(states.QUESTIONS, {
     const counter = this.attributes.counter
     let speechOutput = ''
 
+    if (counter === 14) {
+      this.emit(':tell', WINNER_MESSAGE)
+    }
     if (response) {
       speechOutput += response
     }
@@ -367,11 +370,5 @@ var questionsHandlers = Alexa.CreateStateHandler(states.QUESTIONS, {
   },
   Unhandled () {
     this.emitWithState('AskQuestion')
-  },
-  Winner () {
-    const counter = this.attributes.counter
-    if (counter === 14) {
-      this.emit(':tell', WINNER_MESSAGE)
-    }
   }
 })
