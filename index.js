@@ -329,7 +329,7 @@ var questionsHandlers = Alexa.CreateStateHandler(states.QUESTIONS, {
     const counter = this.attributes.counter
     let speechOutput = ''
 
-    if (counter === 14) {
+    if (counter === 15) {
       this.emit(':tell', WINNER_MESSAGE)
     }
     if (response) {
