@@ -3,6 +3,7 @@ const WELCOME_MESSAGE = 'Welcome to Who Wants To Be A Millionaire! To begin, say
 const START_MESSAGE = 'You will be asked a question, followed by 4 answers. Answer the question with the word "answer" along with the letter that corresponds to your answer. Let\'s kick off with the first question!<break time="1s"/>'
 const REPROMPT_SPEECH = 'Please answer with the word "answer" along with A, B, C or D. You can also say "repeat the question".'
 const HELP_MESSAGE = 'To begin, say "start a game". <break time="1s"/>Answer questions with the word "answer" followed by the letter of the question.'
+const WINNER_MESSAGE = 'Congratulations you have won £1000000'
 
 exports.handler = function (event, context, callback) {
   const alexa = Alexa.handler(event, context, callback)
@@ -355,7 +356,7 @@ var questionsHandlers = Alexa.CreateStateHandler(states.QUESTIONS, {
       this.attributes.response = `${correctAnswer.text} is correct <break time="1s"/>`
       this.emitWithState('AskQuestion')
     } else {
-      this.emit(':tell', `${answer.letter}. ${answer.text} is the wrong answer. The correct answer was ${answer.letter}. ${answer.text}. Better luck next time`)
+      this.emit(':tell', `${answer.letter}. ${answer.text} is the wrong answer. The correct answer was ${correctAnswer.letter}. ${correctAnswer.text}. Better luck next time`)
     }
   },
   RepeatQuestionIntent () {
@@ -366,5 +367,11 @@ var questionsHandlers = Alexa.CreateStateHandler(states.QUESTIONS, {
   },
   Unhandled () {
     this.emitWithState('AskQuestion')
+  },
+  Winner () {
+    const counter = this.attributes.counter
+    if (counter === 14) {
+      this.emit(':tell', WINNER_MESSAGE)
+    }
   }
 })
